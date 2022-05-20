@@ -40,18 +40,22 @@ go get github.com/dentech-floss/revision@v0.1.0
 package example
 
 import (
+    "github.com/dentech-floss/metadata/pkg/metadata"
     "github.com/dentech-floss/revision/pkg/revision"
     "github.com/dentech-floss/telemetry/pkg/telemetry"
 )
 
 func main() {
 
+    metadata := metadata.NewMetadata()
+
     shutdownTracing := telemetry.SetupTracing(
         ctx,
         &telemetry.TracingConfig{
             ServiceName:           revision.ServiceName,
             ServiceVersion:        revision.ServiceVersion,
-            DeploymentEnvironment: gcpConfig.ProjectId,
+            DeploymentEnvironment: metadata.ProjectID,
+            OtlpExporterEnabled:   metadata.OnGCP,
         },
     )
     defer shutdownTracing()
