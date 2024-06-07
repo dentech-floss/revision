@@ -1,3 +1,3 @@
 module github.com/dentech-floss/revision
 
-go 1.17
+go 1.22
